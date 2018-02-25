@@ -1,0 +1,18 @@
+app:
+  shop:
+    list: Lista produktów
+    new: Nowy produkt
+  product:
+    list: Lista produktów
+    new: Nowy produkt
+    count: Łączna liczba produktów, wynosi %number%
+    title: Nazwa produktu
+    description: Opis produktu (max. 255)
+    createdAt: Data utworzenia
+    createdBy: Utworzony przez
+  form:
+    product:
+      name: Nazwa produktu
+      description: Opis produktu
+      price: Cena
+      submit: Zapisz

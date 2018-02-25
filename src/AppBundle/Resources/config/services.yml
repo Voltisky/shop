@@ -1,0 +1,24 @@
+services:
+    app.service.mailer:
+        class: AppBundle\Service\Mailer
+        arguments: ["@mailer", "@templating"]
+
+    app.repository.product:
+        class: AppBundle\Repository\ProductRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+          - AppBundle\Entity\Product
+
+    app.paginator.product:
+        class: AppBundle\Paginator\ProductPaginator
+        arguments: ["@knp_paginator", "@app.repository.product"]
+
+    app.product_manager:
+        class: AppBundle\Manager\ProductManager
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"]
+
+    app.entity_listener.product:
+        class: AppBundle\EntityListener\ProductListener
+        arguments: ["@app.service.mailer"]
+        tags:
+          - { name: doctrine.event_listener, event: postPersist }

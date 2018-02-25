@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block pageTitle %}
+    {{ 'app.product.list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="count">
+        {{ 'app.product.count'|trans({"%number%": paginator.getTotalItemCount}) }}
+    </div>
+    <table class="table">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>#</th>
+            <th>{{ 'app.product.title'|trans }}</th>
+            <th>{{ 'app.product.description'|trans }}</th>
+            <th>{{ 'app.product.createdAt'|trans }}</th>
+            <th>{{ 'app.product.createdBy'|trans }}</th>
+        </tr>
+
+        {# table body #}
+        {% for product in paginator %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description|slice(0, 255) }}{% if product.description|length > 255 %}...{% endif %}</td>
+                <td>{{ product.createdAt | date('Y-m-d, H:i:s') }}</td>
+                <td>{{ product.createdBy }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(paginator) }}
+    </div>
+{% endblock %}
